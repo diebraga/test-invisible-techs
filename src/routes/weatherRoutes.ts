@@ -1,29 +1,17 @@
 import { Router } from 'express';
-import { uuid } from 'uuidv4';
 import { parseISO, startOfHour } from 'date-fns';
-
-interface WeatherTime {
-  id: string;
-  city: string;
-  code: number;
-  date: Date;
-}
+import WeatherTime from '../models/weather';
 
 const WeatherRouter = Router();
 
 const weatherTimeDatabase: WeatherTime[] = [];
 
 WeatherRouter.post('/', (req, res) => {
-  const { city, code, date } = req.body;
+  const { city, code, condition, date } = req.body;
 
   const formatedDate = startOfHour(parseISO(date));
 
-  const weatherTime = {
-    id: uuid(),
-    city,
-    code,
-    date: formatedDate,
-  };
+  const weatherTime = new WeatherTime(city, code, condition, formatedDate);
 
   weatherTimeDatabase.push(weatherTime);
 
