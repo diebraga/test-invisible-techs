@@ -11,7 +11,7 @@ class WeatherTime {
 
   date: Date;
 
-  constructor(city: string, code: number, condition: string, date: Date) {
+  constructor({ city, code, condition, date }: Omit<WeatherTime, 'id'>) {
     this.id = uuid();
     this.city = city;
     this.code = code;

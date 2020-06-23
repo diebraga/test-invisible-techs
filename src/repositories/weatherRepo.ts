@@ -1,5 +1,12 @@
 import WeatherTime from '../models/weather';
 
+interface CreateWeatherDTO {
+  city: string;
+  code: number;
+  condition: string;
+  date: Date;
+}
+
 class WeatherRepo {
   private weatherTimeDatabase: WeatherTime[];
 
@@ -11,13 +18,13 @@ class WeatherRepo {
     return this.weatherTimeDatabase;
   }
 
-  public create(
-    city: string,
-    code: number,
-    condition: string,
-    date: Date,
-  ): WeatherTime {
-    const weatherTime = new WeatherTime(city, code, condition, date);
+  public create({
+    city,
+    code,
+    condition,
+    date,
+  }: CreateWeatherDTO): WeatherTime {
+    const weatherTime = new WeatherTime({ city, code, condition, date });
 
     this.weatherTimeDatabase.push(weatherTime);
 

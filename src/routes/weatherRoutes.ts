@@ -19,7 +19,12 @@ WeatherRouter.post('/', (req, res) => {
 
   const formatedDate = startOfHour(parseISO(date));
 
-  const weatherTime = weatherRepo.create(city, code, condition, formatedDate);
+  const weatherTime = weatherRepo.create({
+    city,
+    code,
+    condition,
+    date: formatedDate,
+  });
 
   res.json(weatherTime);
 });
