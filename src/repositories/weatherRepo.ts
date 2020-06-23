@@ -2,7 +2,7 @@ import WeatherTime from '../models/weather';
 
 interface CreateWeatherDTO {
   city: string;
-  code: number;
+  code: string;
   condition: string;
   date: Date;
 }

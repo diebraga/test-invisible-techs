@@ -1,12 +1,11 @@
 import { Router } from 'express';
-import { parseISO, startOfHour } from 'date-fns';
-import WeatherTime from '../models/weather';
+import { parseISO } from 'date-fns';
+
+import WeatherService from '../service/weatherService';
 import WeatherRepo from '../repositories/weatherRepo';
 
 const WeatherRouter = Router();
 const weatherRepo = new WeatherRepo();
-
-const weatherTimeDatabase: WeatherTime[] = [];
 
 WeatherRouter.get('/', (req, res) => {
   const weatherTime = weatherRepo.all();
@@ -17,9 +16,11 @@ WeatherRouter.get('/', (req, res) => {
 WeatherRouter.post('/', (req, res) => {
   const { city, code, condition, date } = req.body;
 
-  const formatedDate = startOfHour(parseISO(date));
+  const formatedDate = parseISO(date);
 
-  const weatherTime = weatherRepo.create({
+  const createSerices = new WeatherService(weatherRepo);
+
+  const weatherTime = createSerices.execute({
     city,
     code,
     condition,

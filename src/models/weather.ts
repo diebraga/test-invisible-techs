@@ -5,7 +5,7 @@ class WeatherTime {
 
   city: string;
 
-  code: number;
+  code: string;
 
   condition: string;
 
