@@ -1,26 +1,27 @@
 import { Router } from 'express';
+import { getCustomRepository } from 'typeorm';
 import { parseISO } from 'date-fns';
 
 import WeatherService from '../service/weatherService';
 import WeatherRepo from '../repositories/weatherRepo';
 
 const WeatherRouter = Router();
-const weatherRepo = new WeatherRepo();
 
 WeatherRouter.get('/', (req, res) => {
-  const weatherTime = weatherRepo.all();
+  const weatherRepo = getCustomRepository(WeatherRepo);
+  const weatherTime = weatherRepo.find();
 
   return res.json(weatherTime);
 });
 
-WeatherRouter.post('/', (req, res) => {
+WeatherRouter.post('/', async (req, res) => {
   const { city, code, condition, date } = req.body;
 
   const formatedDate = parseISO(date);
 
-  const createSerices = new WeatherService(weatherRepo);
+  const createSerices = new WeatherService();
 
-  const weatherTime = createSerices.execute({
+  const weatherTime = await createSerices.execute({
     city,
     code,
     condition,

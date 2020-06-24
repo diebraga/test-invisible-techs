@@ -1,4 +1,6 @@
 import { startOfHour } from 'date-fns';
+import { getCustomRepository } from 'typeorm';
+
 import WeatherTime from '../models/weather';
 import WeatherRepo from '../repositories/weatherRepo';
 
@@ -10,21 +12,24 @@ interface RequestDTO {
 }
 
 class WeatherService {
-  private weatherRepo: WeatherRepo;
+  public async execute({
+    city,
+    code,
+    condition,
+    date,
+  }: RequestDTO): Promise<WeatherTime> {
+    const weatherRepo = getCustomRepository(WeatherRepo);
 
-  constructor(weatherRepo: WeatherRepo) {
-    this.weatherRepo = weatherRepo;
-  }
-
-  public execute({ city, code, condition, date }: RequestDTO): WeatherTime {
     const dataDate = startOfHour(date);
 
-    const weatherTime = this.weatherRepo.create({
+    const weatherTime = weatherRepo.create({
       city,
       code,
       condition,
       date: dataDate,
     });
+
+    await weatherRepo.save(weatherTime);
 
     return weatherTime;
   }

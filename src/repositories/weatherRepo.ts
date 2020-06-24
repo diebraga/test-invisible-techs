@@ -1,34 +1,14 @@
+import { EntityRepository, Repository } from 'typeorm';
 import WeatherTime from '../models/weather';
 
-interface CreateWeatherDTO {
-  city: string;
-  code: string;
-  condition: string;
-  date: Date;
-}
+@EntityRepository(WeatherTime)
+class WeatherRepo extends Repository<WeatherTime> {
+  public async findByDate(date: Date): Promise<WeatherTime | null> {
+    const findWeatherTime = await this.findOne({
+      where: { date },
+    });
 
-class WeatherRepo {
-  private weatherTimeDatabase: WeatherTime[];
-
-  constructor() {
-    this.weatherTimeDatabase = [];
-  }
-
-  public all(): WeatherTime[] {
-    return this.weatherTimeDatabase;
-  }
-
-  public create({
-    city,
-    code,
-    condition,
-    date,
-  }: CreateWeatherDTO): WeatherTime {
-    const weatherTime = new WeatherTime({ city, code, condition, date });
-
-    this.weatherTimeDatabase.push(weatherTime);
-
-    return weatherTime;
+    return findWeatherTime || null;
   }
 }
 

@@ -1,6 +1,6 @@
 import { Entity, Column, PrimaryColumn } from 'typeorm';
 
-@Entity('weather-date')
+@Entity('weather-time')
 class WeatherTime {
   @PrimaryColumn('uuid')
   id: string;
