@@ -1,23 +1,21 @@
-import { uuid } from 'uuidv4';
+import { Entity, Column, PrimaryColumn } from 'typeorm';
 
+@Entity('weather-date')
 class WeatherTime {
+  @PrimaryColumn('uuid')
   id: string;
 
+  @Column()
   city: string;
 
+  @Column()
   code: string;
 
+  @Column()
   condition: string;
 
+  @Column('timestamp with time zone')
   date: Date;
-
-  constructor({ city, code, condition, date }: Omit<WeatherTime, 'id'>) {
-    this.id = uuid();
-    this.city = city;
-    this.code = code;
-    this.condition = condition;
-    this.date = date;
-  }
 }
 
 export default WeatherTime;
