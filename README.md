@@ -31,14 +31,25 @@ Node.js API built with Express using the best pratices and design patterns.
 
 ## Requisits Chalange 
 
-✔ should be able to create a new transaction <br />
-✔ should be able to list the transactions <br />
-✔ should not be able to create outcome transaction without a valid balance <br />
+Given an array of inputs (location name, postal code), log the current time and weather for those locations.
 
-### Extra funcionalities. 
+Example: "./weather New York, 10005, Tokyo, São Paulo, Pluto"
 
-Cannot create a income or outcome > 10000 <br />
-Cannot create a value !== 'outcome' or 'income' <br />
+Follow our Code guidelines: https://github.com/invisible-tech/guidelines
+
+
+### Funcionalities. 
+
+Through github I've seen diferent Methods to solve the same problem, most of them using external APIs. I decided to create my own populated database. You can post your own Forecast, List and find them by zip code and city.
+
+* Docker
+* Postgress
+* TypeOrm
+
+<p>
+<img src="assets/go1.png" width="300" height="300"/> <img src="assets/go2.png" width="300" height="300"/> 
+</p>
+
 
 ## How it works
 
